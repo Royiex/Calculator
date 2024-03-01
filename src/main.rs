@@ -8,15 +8,15 @@ fn main() {
 
         print!("Number1: ");
         stdout().flush().unwrap();
-        stdin().read_line(&mut n1);
+        stdin().read_line(&mut n1).unwrap();
 
         print!("Action: ");
         stdout().flush().unwrap();
-        stdin().read_line(&mut a);
+        stdin().read_line(&mut a).unwrap();
 
         print!("Number2: ");
         stdout().flush().unwrap();
-        stdin().read_line(&mut n2);
+        stdin().read_line(&mut n2).unwrap();
 
         if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
             let answer_option=match a.trim(){
