@@ -44,32 +44,50 @@ fn main() {
             "="=>MathType::Equal,
             _=>MathType::NoMath,
         };
-       
-        print!("Number2: ");
-        stdout().flush().unwrap();
-        stdin().read_line(&mut n2).unwrap();
 
-        if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
-            let answer_option=match math_option{
-                MathType::Sin=>Answer::Float(n1.sin()),
-                MathType::Cos=>Answer::Float(n1.cos()),
-                MathType::Tan=>Answer::Float(n1.tan()),
-                MathType::Div=>Answer::Float(n1/n2),
-                MathType::Add=>Answer::Float(n1+n2),
-                MathType::Sub=>Answer::Float(n1-n2),
-                MathType::Mul=>Answer::Float(n1*n2),
-                MathType::Equal=>Answer::Bool(n1==n2),
-                _=>Answer::NoAnswer,
-            };
+        let one_arg=match &math_option{
+            MathType::Sin|MathType::Cos|MathType::Tan=>true,
+            _=>false,
+        };
 
-            match answer_option{
-                Answer::Float(answer)=>println!("Result: {}",answer),
-                Answer::Bool(boolean)=>println!("Bool result: {}",boolean),
-                Answer::NoAnswer=>println!("Encountered an unknown action: {}",a),
+        //reach all the way into the if statement tree and grab answer_option via implicit return
+        let answer_option=if one_arg{
+            //one arg
+            if let Ok(n1)=n1.trim().parse::<f32>(){
+                match math_option{
+                    MathType::Sin=>Answer::Float(n1.sin()),
+                    MathType::Cos=>Answer::Float(n1.cos()),
+                    MathType::Tan=>Answer::Float(n1.tan()),
+                    _=>Answer::NoAnswer,
+                }
+            }else{
+                //return no answer if parsing fails
+                Answer::NoAnswer
             }
-        }
-        else{
-            println!("One or more invalid integers");
+        }else{
+            //two args
+            print!("Number2: ");
+            stdout().flush().unwrap();
+            stdin().read_line(&mut n2).unwrap();
+
+            if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
+                match math_option{
+                    MathType::Div=>Answer::Float(n1/n2),
+                    MathType::Add=>Answer::Float(n1+n2),
+                    MathType::Sub=>Answer::Float(n1-n2),
+                    MathType::Mul=>Answer::Float(n1*n2),
+                    MathType::Equal=>Answer::Bool(n1==n2),
+                    _=>Answer::NoAnswer,
+                }
+            }else{
+                //return no answer if parsing fails
+                Answer::NoAnswer
+            }
+        };
+        match answer_option{
+            Answer::Float(answer)=>println!("Result: {}",answer),
+            Answer::Bool(boolean)=>println!("Bool result: {}",boolean),
+            Answer::NoAnswer=>println!("Encountered an unknown action: {}",a),
         }
     };
 }
