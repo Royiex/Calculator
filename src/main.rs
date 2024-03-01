@@ -62,8 +62,8 @@ fn main() {
                 Answer::NoAnswer=>println!("Encountered an unknown action: {}",a),
             }
         }
-    else{
-        println!("One or more invalid integers");
+        else{
+            println!("One or more invalid integers");
         }
     };
 }
