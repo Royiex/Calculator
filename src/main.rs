@@ -5,12 +5,19 @@ enum Answer{
     Bool(bool),
     NoAnswer,
 }
+
 enum MathType{
-    Sin(f32),
-    Cos(f32),
-    Tan(f32),
-    NoAnswer 
+    Sin,
+    Cos,
+    Tan,
+    Div,
+    Add,
+    Sub,
+    Mul,
+    Equal,
+    NoMath,
 }
+
 fn main() {
 
     loop{
@@ -26,33 +33,32 @@ fn main() {
         stdout().flush().unwrap();
         stdin().read_line(&mut a).unwrap();
 
-        if let (Ok(n1))=(n1.trim().parse::<f32>()){
-            let math_option=match a.trim(){
-                "sin"=>MathType::Sin(n1.sin()),
-                "cos"=>MathType::Cos(n1.cos()),
-                "tan"=>MathType::Tan(n1.tan()),
-                _=>MathType::NoAnswer,
-            };
-
-            match math_option{
-                MathType::Sin(answer)=>{println!("Result: {}",answer); continue;},
-                MathType::Cos(answer)=>{println!("Result: {}",answer); continue;},
-                MathType::Tan(answer)=>{println!("Result: {}",answer); continue;},
-                MathType::NoAnswer=>()
-            }
-        }
+        let math_option=match a.trim(){
+            "sin"=>MathType::Sin,
+            "cos"=>MathType::Cos,
+            "tan"=>MathType::Tan,
+            "/"=>MathType::Div,
+            "+"=>MathType::Add,
+            "-"=>MathType::Sub,
+            "*"=>MathType::Mul,
+            "="=>MathType::Equal,
+            _=>MathType::NoMath,
+        };
        
         print!("Number2: ");
         stdout().flush().unwrap();
         stdin().read_line(&mut n2).unwrap();
 
         if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
-            let answer_option=match a.trim(){
-                "/"=>Answer::Float(n1/n2),
-                "+"=>Answer::Float(n1+n2),
-                "-"=>Answer::Float(n1-n2),
-                "*"=>Answer::Float(n1*n2),
-                "="=>Answer::Bool(n1==n2),
+            let answer_option=match math_option{
+                MathType::Sin=>Answer::Float(n1.sin()),
+                MathType::Cos=>Answer::Float(n1.cos()),
+                MathType::Tan=>Answer::Float(n1.tan()),
+                MathType::Div=>Answer::Float(n1/n2),
+                MathType::Add=>Answer::Float(n1+n2),
+                MathType::Sub=>Answer::Float(n1-n2),
+                MathType::Mul=>Answer::Float(n1*n2),
+                MathType::Equal=>Answer::Bool(n1==n2),
                 _=>Answer::NoAnswer,
             };
 
