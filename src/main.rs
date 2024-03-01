@@ -3,6 +3,7 @@ use std::io::{stdin,stdout,Write};
 enum Answer{
     Float(f32),
     NoAnswer,
+    Equal,
 }
 
 fn main() {
@@ -29,11 +30,18 @@ fn main() {
                 "+"=>Answer::Float(n1+n2),
                 "-"=>Answer::Float(n1-n2),
                 "*"=>Answer::Float(n1*n2),
+                "="=>Answer::Equal,
                 _=>Answer::NoAnswer,
             };
 
             match answer_option{
                 Answer::Float(answer)=>println!("Result: {}",answer),
+                Answer::Equal=>if n1==n2 {
+                    println!("Correct!")
+                }
+                        else {
+                            println!("Wrong smh")
+                        }
                 Answer::NoAnswer=>println!("Encountered an unknown action: {}",a),
             }
         }else{
