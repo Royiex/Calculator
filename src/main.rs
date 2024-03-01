@@ -1,5 +1,10 @@
 use std::io::{stdin,stdout,Write};
 
+enum Answer{
+    Float(f32),
+    NoAnswer,
+}
+
 fn main() {
     loop{
         let mut n1 = String::new();
@@ -20,16 +25,16 @@ fn main() {
 
         if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
             let answer_option=match a.trim(){
-                "/"=>Some(n1/n2),
-                "+"=>Some(n1+n2),
-                "-"=>Some(n1-n2),
-                "*"=>Some(n1*n2),
-                _=>None,
+                "/"=>Float(n1/n2),
+                "+"=>Float(n1+n2),
+                "-"=>Float(n1-n2),
+                "*"=>Float(n1*n2),
+                _=>NoAnswer,
             };
 
             match answer_option{
-                Some(answer)=>println!("Result: {}",answer),
-                None=>println!("Encountered an unknown action: {}",a),
+                Float(answer)=>println!("Result: {}",answer),
+                NoAnswer=>println!("Encountered an unknown action: {}",a),
             }
         }else{
             println!("One or more invalid integers");
