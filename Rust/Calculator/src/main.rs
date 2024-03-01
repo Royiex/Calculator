@@ -1,33 +1,38 @@
-fn main() {
-    use std::io::{stdin,stdout,Write};
+use std::io::{stdin,stdout,Write};
 
-loop{
+fn main() {
+    loop{
         let mut n1 = String::new();
         let mut n2 = String::new();
         let mut a = String::new();
 
         print!("Number1: ");
-        let _=stdout().flush();
+        stdout().flush().unwrap();
         stdin().read_line(&mut n1);
 
         print!("Action: ");
-        let _=stdout().flush();
+        stdout().flush().unwrap();
         stdin().read_line(&mut a);
 
         print!("Number2: ");
-        let _=stdout().flush();
+        stdout().flush().unwrap();
         stdin().read_line(&mut n2);
 
-        let (n1,n2)=(n1.trim().parse::<f32>().unwrap(),n2.trim().parse::<f32>().unwrap());
+        if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
+            let answer_option=match a.trim(){
+                "/"=>Some(n1/n2),
+                "+"=>Some(n1+n2),
+                "-"=>Some(n1-n2),
+                "*"=>Some(n1*n2),
+                _=>None,
+            };
 
-        let answer=match a.trim(){
-        "/"=>n1/n2,
-        "+"=>n1+n2,
-        "-"=>n1-n2,
-        "*"=>n1*n2,
-        _=>0.0,
-        };
-
-        println!("Result: {}",answer);
+            match answer_option{
+                Some(answer)=>println!("Result: {}",answer),
+                None=>println!("Encountered an unknown action: {}",a);
+            }
+        }else{
+            println!("One or more invalid integers");
+        }
     };
 }
