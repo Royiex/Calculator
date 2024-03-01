@@ -1,5 +1,6 @@
+use std::io::{stdin,stdout,Write};
+
 fn main() {
-    use std::io::{stdin,stdout,Write};
 
 loop{
         let mut n1 = String::new();
