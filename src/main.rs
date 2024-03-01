@@ -5,18 +5,13 @@ enum Answer{
     Bool(bool),
     NoAnswer,
 }
-
+enum MathType{
+    Sin(f32),
+    Cos(f32),
+    Tan(f32),
+    NoAnswer 
+}
 fn main() {
-    let allowed_actions={
-        let mut actions=std::collections::HashMap::new();
-        actions.insert("/");
-        actions.insert("+");
-        actions.insert("-");
-        actions.insert("*");
-        actions.insert("=");
-        //implicitly return actions into the allowed_actions variable
-        actions
-    };
 
     loop{
         let mut n1 = String::new();
@@ -31,10 +26,22 @@ fn main() {
         stdout().flush().unwrap();
         stdin().read_line(&mut a).unwrap();
 
-        if !allowed_actions.contains(a.trim().as_str()){
-            println!("Illegal action!");
-        }
+        if let (Ok(n1))=(n1.trim().parse::<f32>()){
+            let math_option=match a.trim(){
+                "sin"=>MathType::Sin(n1.sin()),
+                "cos"=>MathType::Cos(n1.cos()),
+                "tan"=>MathType::Tan(n1.tan()),
+                _=>MathType::NoAnswer,
+            };
 
+            match math_option{
+                MathType::Sin(answer)=>{println!("Result: {}",answer); continue;},
+                MathType::Cos(answer)=>{println!("Result: {}",answer); continue;},
+                MathType::Tan(answer)=>{println!("Result: {}",answer); continue;},
+                MathType::NoAnswer=>()
+            }
+        }
+       
         print!("Number2: ");
         stdout().flush().unwrap();
         stdin().read_line(&mut n2).unwrap();
@@ -54,8 +61,9 @@ fn main() {
                 Answer::Bool(boolean)=>println!("Bool result: {}",boolean),
                 Answer::NoAnswer=>println!("Encountered an unknown action: {}",a),
             }
-        }else{
-            println!("One or more invalid integers");
+        }
+    else{
+        println!("One or more invalid integers");
         }
     };
 }
