@@ -25,16 +25,16 @@ fn main() {
 
         if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
             let answer_option=match a.trim(){
-                "/"=>Float(n1/n2),
-                "+"=>Float(n1+n2),
-                "-"=>Float(n1-n2),
-                "*"=>Float(n1*n2),
-                _=>NoAnswer,
+                "/"=>Answer::Float(n1/n2),
+                "+"=>Answer::Float(n1+n2),
+                "-"=>Answer::Float(n1-n2),
+                "*"=>Answer::Float(n1*n2),
+                _=>Answer::NoAnswer,
             };
 
             match answer_option{
-                Float(answer)=>println!("Result: {}",answer),
-                NoAnswer=>println!("Encountered an unknown action: {}",a),
+                Answer::Float(answer)=>println!("Result: {}",answer),
+                Answer::NoAnswer=>println!("Encountered an unknown action: {}",a),
             }
         }else{
             println!("One or more invalid integers");
