@@ -18,16 +18,18 @@ fn main() {
         stdout().flush().unwrap();
         stdin().read_line(&mut n2);
 
-        let (n1,n2)=(n1.trim().parse::<f32>().unwrap(),n2.trim().parse::<f32>().unwrap());
+        if let (Ok(n1),Ok(n2))=(n1.trim().parse::<f32>(),n2.trim().parse::<f32>()){
+            let answer=match a.trim(){
+                "/"=>n1/n2,
+                "+"=>n1+n2,
+                "-"=>n1-n2,
+                "*"=>n1*n2,
+                _=>0.0,
+            };
 
-        let answer=match a.trim(){
-            "/"=>n1/n2,
-            "+"=>n1+n2,
-            "-"=>n1-n2,
-            "*"=>n1*n2,
-            _=>0.0,
-        };
-
-        println!("Result: {}",answer);
+            println!("Result: {}",answer);
+        }else{
+            println!("One or more invalid integers");
+        }
     };
 }
