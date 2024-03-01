@@ -7,15 +7,15 @@ fn main() {
         let mut a = String::new();
 
         print!("Number1: ");
-        let _=stdout().flush();
+        stdout().flush().unwrap();
         stdin().read_line(&mut n1);
 
         print!("Action: ");
-        let _=stdout().flush();
+        stdout().flush().unwrap();
         stdin().read_line(&mut a);
 
         print!("Number2: ");
-        let _=stdout().flush();
+        stdout().flush().unwrap();
         stdin().read_line(&mut n2);
 
         let (n1,n2)=(n1.trim().parse::<f32>().unwrap(),n2.trim().parse::<f32>().unwrap());
