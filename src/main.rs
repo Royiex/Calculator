@@ -29,7 +29,7 @@ fn main() {
 
             match answer_option{
                 Some(answer)=>println!("Result: {}",answer),
-                None=>println!("Encountered an unknown action: {}",a);
+                None=>println!("Encountered an unknown action: {}",a),
             }
         }else{
             println!("One or more invalid integers");
