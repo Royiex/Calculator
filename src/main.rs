@@ -7,6 +7,17 @@ enum Answer{
 }
 
 fn main() {
+    let allowed_actions={
+        let mut actions=std::collections::HashMap::new();
+        actions.insert("/");
+        actions.insert("+");
+        actions.insert("-");
+        actions.insert("*");
+        actions.insert("=");
+        //implicitly return actions into the allowed_actions variable
+        actions
+    };
+
     loop{
         let mut n1 = String::new();
         let mut n2 = String::new();
@@ -19,6 +30,10 @@ fn main() {
         print!("Action: ");
         stdout().flush().unwrap();
         stdin().read_line(&mut a).unwrap();
+
+        if !allowed_actions.contains(a.trim().as_str()){
+            println!("Illegal action!");
+        }
 
         print!("Number2: ");
         stdout().flush().unwrap();
