@@ -15,6 +15,7 @@ enum MathType{
     Sub,
     Mul,
     Equal,
+    Precent,
     NoMath,
 }
 
@@ -42,6 +43,7 @@ fn main() {
             "-"=>MathType::Sub,
             "*"=>MathType::Mul,
             "="=>MathType::Equal,
+            "%"=>MathType::Precent,
             _=>MathType::NoMath,
         };
 
@@ -77,6 +79,7 @@ fn main() {
                     MathType::Sub=>Answer::Float(n1-n2),
                     MathType::Mul=>Answer::Float(n1*n2),
                     MathType::Equal=>Answer::Bool(n1==n2),
+                    MathType::Precent=>Answer::Float((n1/100.0)*n2),
                     _=>Answer::NoAnswer,
                 }
             }else{
