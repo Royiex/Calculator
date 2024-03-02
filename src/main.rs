@@ -10,10 +10,15 @@ enum MathType{
     Sin,
     Cos,
     Tan,
+    ArcSin,
+    ArcCos,
+    ArcTan,
     Div,
     Add,
     Sub,
     Mul,
+    Exp,
+    Sqrt,
     Equal,
     Precent,
     NoMath,
@@ -38,17 +43,22 @@ fn main() {
             "sin"=>MathType::Sin,
             "cos"=>MathType::Cos,
             "tan"=>MathType::Tan,
+            "asin"=>MathType::ArcSin,
+            "acos"=>MathType::ArcCos,
+            "atan"=>MathType::ArcTan,
             "/"=>MathType::Div,
             "+"=>MathType::Add,
             "-"=>MathType::Sub,
             "*"=>MathType::Mul,
+            "exp"=>MathType::Exp,
+            "sqrt"=>MathType::Sqrt,
             "="=>MathType::Equal,
             "%"=>MathType::Precent,
             _=>MathType::NoMath,
         };
 
         let one_arg=match &math_option{
-            MathType::Sin|MathType::Cos|MathType::Tan=>true,
+            MathType::Sin|MathType::Cos|MathType::Tan|MathType::ArcSin|MathType::ArcCos|MathType::ArcTan|MathType::Sqrt=>true,
             _=>false,
         };
 
@@ -60,6 +70,10 @@ fn main() {
                     MathType::Sin=>Answer::Float(n1.sin()),
                     MathType::Cos=>Answer::Float(n1.cos()),
                     MathType::Tan=>Answer::Float(n1.tan()),
+                    MathType::ArcSin=>Answer::Float(n1.asin()),
+                    MathType::ArcCos=>Answer::Float(n1.acos()),
+                    MathType::ArcTan=>Answer::Float(n1.atan()),
+                    MathType::Sqrt=>Answer::Float(n1.sqrt()),
                     _=>Answer::NoAnswer,
                 }
             }else{
@@ -78,6 +92,7 @@ fn main() {
                     MathType::Add=>Answer::Float(n1+n2),
                     MathType::Sub=>Answer::Float(n1-n2),
                     MathType::Mul=>Answer::Float(n1*n2),
+                    MathType::Exp=>Answer::Float(n1.powf(n2)),
                     MathType::Equal=>Answer::Bool(n1==n2),
                     MathType::Precent=>Answer::Float((n1/100.0)*n2),
                     _=>Answer::NoAnswer,
