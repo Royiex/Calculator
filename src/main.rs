@@ -5,7 +5,6 @@ enum Answer{
     Bool(bool),
     NoAnswer,
 }
-
 enum MathType{
     Sin,
     Cos,
@@ -20,7 +19,7 @@ enum MathType{
     Exp,
     Sqrt,
     Equal,
-    Precent,
+    Percent,
     NoMath,
 }
 
@@ -53,7 +52,7 @@ fn main() {
             "exp"=>MathType::Exp,
             "sqrt"=>MathType::Sqrt,
             "="=>MathType::Equal,
-            "%"=>MathType::Precent,
+            "%"=>MathType::Percent,
             _=>MathType::NoMath,
         };
 
@@ -76,11 +75,13 @@ fn main() {
                     MathType::Sqrt=>Answer::Float(n1.sqrt()),
                     _=>Answer::NoAnswer,
                 }
-            }else{
+            }
+            else{
                 //return no answer if parsing fails
                 Answer::NoAnswer
             }
-        }else{
+        }
+        else{
             //two args
             print!("Number2: ");
             stdout().flush().unwrap();
@@ -94,7 +95,7 @@ fn main() {
                     MathType::Mul=>Answer::Float(n1*n2),
                     MathType::Exp=>Answer::Float(n1.powf(n2)),
                     MathType::Equal=>Answer::Bool(n1==n2),
-                    MathType::Precent=>Answer::Float((n1/100.0)*n2),
+                    MathType::Percent=>Answer::Float((n1/100.0)*n2),
                     _=>Answer::NoAnswer,
                 }
             }else{
